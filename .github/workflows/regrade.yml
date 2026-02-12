@@ -1,0 +1,32 @@
+name: Regrade All Submissions
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # every 24 hours at midnight UTC
+  workflow_dispatch: # allow manual trigger
+
+jobs:
+  regrade:
+    runs-on: ubuntu-latest
+
+    env:
+      COURSE_ID: "1226014"
+      ASSIGNMENT_ID: "7654318"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 python-dotenv rich
+
+      - name: Write cookies file
+        env:
+          COOKIES_JSON: ${{ secrets.COOKIES_JSON }}
+        run: echo "$COOKIES_JSON" > cookies.json
+
+      - name: Run regrade script
+        run: python regrade_all.py $COURSE_ID $ASSIGNMENT_ID

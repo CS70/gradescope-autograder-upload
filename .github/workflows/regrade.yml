@@ -2,7 +2,7 @@ name: Regrade All Submissions
 
 on:
   schedule:
-    - cron: "0 0 * * *" # every 24 hours at midnight UTC
+    - cron: "30 4 * * *" # every day at 8:30 PM PST (4:30 AM UTC)
   workflow_dispatch: # allow manual trigger
 
 jobs:

@@ -317,6 +317,28 @@ class GradescopeAPI:
                 f"Bad response when regrading submission id {submission_id} (course {course_id}, assignment {assignment_id})"
             )
 
+    def regrade_all_submissions(
+        self, course_id: int, assignment_id: int, csrf_token: str
+    ) -> None:
+        """
+        Regrade all submissions for an assignment.
+        Mimics the "Regrade All Submissions" button on the submissions page.
+        """
+        regrade_url = urljoin(
+            BASE_URL,
+            f"/courses/{course_id}/assignments/{assignment_id}/submissions/regrade",
+        )
+        response = self.session.post(
+            regrade_url, headers={CSRF_TOKEN_HEADER: csrf_token}
+        )
+
+        if not response.ok:
+            raise RuntimeError(
+                f"Bad response when regrading all submissions "
+                f"(course {course_id}, assignment {assignment_id}); "
+                f"status {response.status_code}"
+            )
+
     def upload(
         self,
         course_id: Union[str, int],

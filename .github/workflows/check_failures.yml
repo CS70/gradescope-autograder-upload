@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      COURSE_ID: "1328165"
-      ASSIGNMENT_ID: "8269453"
+      COURSE_ID: "1359539"
+      ASSIGNMENT_ID: "8518462"
 
     steps:
       - uses: actions/checkout@v4
